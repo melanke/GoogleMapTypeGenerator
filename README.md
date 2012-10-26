@@ -147,8 +147,8 @@ public class MyCustomMapGenerator extends MapGenerator{
 
 ```
 ##How it looks like
-![Ex1](melanke.github.com/GoogleMapTypeGenerator/blob/master/readmefiles/ex1.png)
-![Ex2](melanke.github.com/GoogleMapTypeGenerator/blob/master/readmefiles/ex2.png)
-![Ex3](melanke.github.com/GoogleMapTypeGenerator/blob/master/readmefiles/ex3.png)
-![Ex4](melanke.github.com/GoogleMapTypeGenerator/blob/master/readmefiles/ex4.png)
-![Ex5](melanke.github.com/GoogleMapTypeGenerator/blob/master/readmefiles/ex5.png)
+![Ex1](https://github.com/melanke/GoogleMapTypeGenerator/blob/master/readmefiles/ex1.png)
+![Ex2](https://github.com/melanke/GoogleMapTypeGenerator/blob/master/readmefiles/ex2.png)
+![Ex3](https://github.com/melanke/GoogleMapTypeGenerator/blob/master/readmefiles/ex3.png)
+![Ex4](https://github.com/melanke/GoogleMapTypeGenerator/blob/master/readmefiles/ex4.png)
+![Ex5](https://github.com/melanke/GoogleMapTypeGenerator/blob/master/readmefiles/ex5.png)
