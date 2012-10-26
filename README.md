@@ -16,7 +16,8 @@ new MyCustomMapGenerator().run();
 
 Wait something about 30 minutes or less, it depends how much data do you have.
 
-the file name patter will be <tileX>x<tileY>-<tileZoom>.png (example: 8x10-4.png)
+the file name patter will be (tileX)x(tileY)-(tileZoom).png 
+(example: 8x10-4.png)
 
 After generating images you need to load them as described in this link
 https://developers.google.com/maps/documentation/javascript/maptypes#CustomMapTypes
