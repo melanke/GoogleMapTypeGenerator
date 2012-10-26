@@ -2,24 +2,26 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package mlk.mapgenerator.desenho;
+package mlk.mapgenerator.draw;
 
 /**
  *
- * @author gillopesbueno
+ * @author gillopesbueno aka melanke
+ * 
+ * a comparable for a position x and y
  */
-class PosicaoParaSetDeUmPonto implements Comparable<PosicaoParaSetDeUmPonto>{
+class PositionForSetOfAPoint implements Comparable<PositionForSetOfAPoint>{
         public int x;
         public int y;
 
-        public PosicaoParaSetDeUmPonto(int x, int y) {
+        public PositionForSetOfAPoint(int x, int y) {
             this.x = x;
             this.y = y;
         }
         
         
 
-        public int compareTo(PosicaoParaSetDeUmPonto o) {
+        public int compareTo(PositionForSetOfAPoint o) {
             return o.hashCode();
         }
 
@@ -39,7 +41,7 @@ class PosicaoParaSetDeUmPonto implements Comparable<PosicaoParaSetDeUmPonto>{
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final PosicaoParaSetDeUmPonto other = (PosicaoParaSetDeUmPonto) obj;
+        final PositionForSetOfAPoint other = (PositionForSetOfAPoint) obj;
         if (this.x != other.x) {
             return false;
         }

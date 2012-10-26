@@ -1,13 +1,10 @@
 package mlk.mapgenerator.util;
 /*
- * Originally written by Andrew Rowbottom. 
+ * Originally written by Andrew Rowbottom 
+ * Modified by gillopesbueno aka melanke
  * Released freely into the public domain, use it how you want, don't blame me.
  * No warranty for this code is taken in any way. 
- */
-
-import java.awt.geom.Rectangle2D;
-
-/**
+ *
  * A utility class to assist in encoding and decoding google tile references
  *
  * For reasons of my own longitude is treated as being between -180 and +180
@@ -22,11 +19,11 @@ public abstract class GoogleTileUtils {
     private static final double INITIAL_RESOLUTION = 156543.03392804097, ORIGIN_SHIFT = 20037508.342789244;
 
     /**
-     * obtem google aerial
+     * get a hash that represents coords of the tile in google aerial
      * @param lat
      * @param lon
      * @param zoom
-     * @return string que representa as coordenadas do tile em google aerial
+     * @return
      */
     public static String getGoogleAerial(double lat, double lon, int zoom) {
 
@@ -74,16 +71,16 @@ public abstract class GoogleTileUtils {
     }
 
     /**
-     * obtem as coordenadas do tile apartir do formato google aerial
-     * @param emGoogleAerial
-     * @return {coluna, linha, zoom}
+     * get the coords of the tile from google aerial format
+     * @param inGoogleAerial
+     * @return {column, line, zoom}
      */
-    public static int[] getTileCoord(String emGoogleAerial) {
+    public static int[] getTileCoord(String inGoogleAerial) {
         // Return column, row, zoom for Google Aerial tile string.
         String rowS = "";
         String colS = "";
-        for (int i = 0; i < emGoogleAerial.length(); i++) {
-            switch (emGoogleAerial.charAt(i)) {
+        for (int i = 0; i < inGoogleAerial.length(); i++) {
+            switch (inGoogleAerial.charAt(i)) {
                 case 't':
                     rowS += '0';
                     colS += '0';
@@ -104,7 +101,7 @@ public abstract class GoogleTileUtils {
         }
         int row = Integer.parseInt(rowS, 2);
         int col = Integer.parseInt(colS, 2);
-        int zoom = emGoogleAerial.length() - 1;
+        int zoom = inGoogleAerial.length() - 1;
         row = (int) Math.pow(2, zoom) - row - 1;
 
         int[] retorno = {col, row, zoom};
@@ -112,11 +109,11 @@ public abstract class GoogleTileUtils {
     }
 
     /**
-     * obtem a coordenada do ponto dentro do tile de acordo com a lat/lng e zoom do tile
-     * @param lat
-     * @param lon
-     * @param zoom
-     * @return array com 0-x e 1-y
+     * get point position inside the tile
+     * @param lat lat of the point
+     * @param lon lng of the point
+     * @param zoom tile zoom
+     * @return {x, y}
      */
     public static int[] getPixelCoordinate(double lat, double lon, int zoom) {
         double tiles = Math.pow(2, zoom);
@@ -130,24 +127,24 @@ public abstract class GoogleTileUtils {
     }
 
     /**
-     * 
+     * lat lng boundary of the tile
      * @param tx tile x
      * @param ty tile y
      * @param zoom
-     * @return min lat, min lng, max lat, max lng
+     * @return {min lat, min lng, max lat, max lng}
      */
-    public static double[] getTileLatLonBounds(int tx, int ty, int zoom) {
+    public static double[] getTileLatLngBounds(int tx, int ty, int zoom) {
 
         
         double[] bounds = getTileBounds(tx, ty, zoom);
         
-        double[] minLatLon = getMetersToLatLon(bounds[0], bounds[1]);
+        double[] minLatLng = getMetersToLatLng(bounds[0], bounds[1]);
         
-        double[] maxLatLon = getMetersToLatLon(bounds[2], bounds[3]);
+        double[] maxLatLng = getMetersToLatLng(bounds[2], bounds[3]);
         
-        double[] retorno = {minLatLon[0], minLatLon[1], maxLatLon[0], maxLatLon[1]};
+        double[] response = {minLatLng[0], minLatLng[1], maxLatLng[0], maxLatLng[1]};
         
-        return retorno;
+        return response;
    }
 
     private static double[] getTileBounds(int tx, int ty, int zoom) {
@@ -156,20 +153,20 @@ public abstract class GoogleTileUtils {
         
         double[] maxxy = getPixelsToMeters((tx + 1) * TILE_SIZE, (ty + 1) * TILE_SIZE, zoom);
         
-        double[] retorno = {minxy[0], minxy[1], maxxy[0], maxxy[1]};
-        return retorno;
+        double[] response = {minxy[0], minxy[1], maxxy[0], maxxy[1]};
+        return response;
     }
 
-    private static double[] getMetersToLatLon(double mx, double my) {
+    private static double[] getMetersToLatLng(double mx, double my) {
 
-        double lon = (mx / ORIGIN_SHIFT) * 180.0;
+        double lng = (mx / ORIGIN_SHIFT) * 180.0;
 
         double lat = (my / ORIGIN_SHIFT) * 180.0;
         
         lat = 180 / Math.PI * (2 * Math.atan(Math.exp(lat * Math.PI / 180.0)) - Math.PI / 2.0);
         
-        double[] retorno = {lat, lon};
-        return retorno;
+        double[] response = {lat, lng};
+        return response;
     }
 
     private static double[] getPixelsToMeters(int px, int py, int zoom) {
@@ -180,9 +177,9 @@ public abstract class GoogleTileUtils {
         
         double my = py * res - ORIGIN_SHIFT;
         
-        double[] retorno = {mx, my};
+        double[] response = {mx, my};
         
-        return retorno;
+        return response;
     }
 
     private static double getResolution(int zoom) {

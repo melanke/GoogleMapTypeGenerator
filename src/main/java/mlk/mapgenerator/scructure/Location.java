@@ -1,17 +1,19 @@
 
 
-package mlk.mapgenerator.estrutura;
+package mlk.mapgenerator.scructure;
 
 /**
  *
- * @author gillopesbueno
+ * @author gillopesbueno aka melanke
+ * 
+ * lat, lng pair
  */
-public class Localidade {
+public class Location {
 
     private double lat, lon;
 
 
-    public Localidade(double lat, double lon) {
+    public Location(double lat, double lon) {
         this.lat = lat;
         this.lon = lon;
     }

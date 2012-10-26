@@ -1,10 +1,14 @@
 
 
-package mlk.mapgenerator.estrutura;
+package mlk.mapgenerator.scructure;
 
 /**
  *
- * @author gillopesbueno
+ * @author gillopesbueno aka melanke
+ * 
+ * represents a square in the map
+ * each tile is in a position and zoom, so gmaps only use this image when the 
+ * user is looking at this exacly position and zoom
  */
 public class Tile {
 
