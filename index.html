@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Googlemaptypegenerator : Generates images to overlay google maps, it is usefull when you need to plot a large amount of data to a map" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Googlemaptypegenerator</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/melanke/GoogleMapTypeGenerator">View on GitHub</a>
+
+          <h1 id="project_title">Googlemaptypegenerator</h1>
+          <h2 id="project_tagline">Generates images to overlay google maps, it is usefull when you need to plot a large amount of data to a map</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/melanke/GoogleMapTypeGenerator/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/melanke/GoogleMapTypeGenerator/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>GoogleMapTypeGenerator</h1>
+
+<p>Generates images to overlay google maps, it is usefull when you need to plot a large amount of data to a map</p>
+
+<h2>Implementing a MapGenerator</h2>
+
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">java.util.LinkedList</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">mlk.mapgenerator.draw.PointPlotter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">mlk.mapgenerator.scructure.Location</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">mlk.mapgenerator.scructure.PointInMap</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">mlk.mapgenerator.main.MapGenerator</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyCustomMapGenerator</span> <span class="kd">extends</span> <span class="n">MapGenerator</span><span class="o">{</span>
+
+
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">PointInMap</span><span class="o">&gt;</span> <span class="n">getPointsInArea</span><span class="o">(</span><span class="kt">double</span> <span class="n">minLat</span><span class="o">,</span> <span class="kt">double</span> <span class="n">minLng</span><span class="o">,</span> <span class="kt">double</span> <span class="n">maxLat</span><span class="o">,</span> <span class="kt">double</span> <span class="n">maxLng</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">//here you should return the points in the area specified in params</span>
+        <span class="c1">//this method will be invoked many times with different coords</span>
+
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">PointInMap</span><span class="o">&gt;</span> <span class="n">response</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedList</span><span class="o">&lt;</span><span class="n">PointInMap</span><span class="o">&gt;();</span>
+
+        <span class="kt">float</span> <span class="n">weight</span> <span class="o">=</span> <span class="mf">0.5</span><span class="n">F</span><span class="o">;</span> <span class="c1">//0 to 1 represents the color of the point</span>
+
+        <span class="n">response</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">PointInMap</span><span class="o">(</span><span class="k">new</span> <span class="n">Location</span><span class="o">(-</span><span class="mf">21.534847</span><span class="o">,-</span><span class="mf">43.914001</span><span class="o">),</span> <span class="n">weight</span><span class="o">));</span>
+
+        <span class="k">return</span> <span class="n">response</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getFolder</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="s">"path/of/folder/to/save"</span><span class="o">;</span> <span class="c1">//ends without bar</span>
+    <span class="o">}</span>
+
+
+    <span class="c1">//for better performance tell the total area</span>
+
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">double</span> <span class="nf">getMinLng</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mf">21.534847</span><span class="o">;</span> 
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">double</span> <span class="nf">getMaxLng</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mf">21.534847</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">double</span> <span class="nf">getMinLat</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mf">43.914001</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">double</span> <span class="nf">getMaxLat</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mf">43.914001</span><span class="o">;</span>
+    <span class="o">}</span>
+
+
+    <span class="c1">//constructor (I put it in the end because it is not necessary)</span>
+
+    <span class="kd">public</span> <span class="nf">MyCustomMapGenerator</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">//only necessary if you want customize your plotter</span>
+
+        <span class="n">plotter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PointPlotter</span><span class="o">();</span>
+
+        <span class="c1">//in the next update will be a better wat to custom the colors</span>
+        <span class="c1">//for now, use the default RGB color model (TYPE_INT_ARGB)</span>
+
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">opaqueColors</span> <span class="o">=</span> <span class="o">{</span>
+        <span class="o">-</span><span class="mi">16764468</span><span class="o">,</span> <span class="c1">//royal blue</span>
+        <span class="o">-</span><span class="mi">16762676</span><span class="o">,</span>
+        <span class="o">-</span><span class="mi">16761140</span><span class="o">,</span>
+        <span class="o">-</span><span class="mi">16759348</span><span class="o">,</span>
+        <span class="o">-</span><span class="mi">16757812</span><span class="o">,</span>
+        <span class="o">-</span><span class="mi">16756020</span><span class="o">,</span>
+        <span class="o">-</span><span class="mi">16754484</span><span class="o">,</span>
+        <span class="o">-</span><span class="mi">16752948</span><span class="o">,</span>
+        <span class="o">-</span><span class="mi">16751156</span><span class="o">,</span>
+        <span class="o">-</span><span class="mi">16749620</span><span class="o">,</span>
+        <span class="o">-</span><span class="mi">16747828</span><span class="o">,</span>
+        <span class="o">-</span><span class="mi">16746292</span><span class="o">,</span>
+        <span class="o">-</span><span class="mi">16744500</span><span class="o">,</span>
+        <span class="o">-</span><span class="mi">16742964</span><span class="o">,</span>
+        <span class="o">-</span><span class="mi">16741172</span><span class="o">,</span>
+        <span class="o">-</span><span class="mi">16739636</span><span class="o">,</span>
+        <span class="o">-</span><span class="mi">16738100</span><span class="o">,</span>
+        <span class="o">-</span><span class="mi">16736308</span><span class="o">,</span>
+        <span class="o">-</span><span class="mi">16734772</span><span class="o">,</span>
+        <span class="o">-</span><span class="mi">16732980</span><span class="o">,</span>
+        <span class="o">-</span><span class="mi">16731444</span><span class="o">,</span>
+        <span class="o">-</span><span class="mi">16729652</span><span class="o">,</span>
+        <span class="o">-</span><span class="mi">16728116</span><span class="o">,</span>
+        <span class="o">-</span><span class="mi">16726324</span><span class="o">,</span>
+        <span class="o">-</span><span class="mi">16724788</span><span class="o">,</span>
+        <span class="o">-</span><span class="mi">16724794</span><span class="o">,</span>
+        <span class="o">-</span><span class="mi">16724801</span><span class="o">,</span>
+        <span class="o">-</span><span class="mi">16724807</span><span class="o">,</span>
+        <span class="o">-</span><span class="mi">16724814</span><span class="o">,</span>
+        <span class="o">-</span><span class="mi">16724820</span> <span class="c1">//dark blue</span>
+    <span class="o">};</span>
+
+    <span class="kt">int</span><span class="o">[]</span> <span class="n">semitransparentColors</span> <span class="o">=</span> <span class="o">{</span>
+        <span class="mi">2013278668</span><span class="o">,</span> <span class="c1">//royal blue</span>
+        <span class="mi">2013280460</span><span class="o">,</span>
+        <span class="mi">2013281996</span><span class="o">,</span>
+        <span class="mi">2013283788</span><span class="o">,</span>
+        <span class="mi">2013285324</span><span class="o">,</span>
+        <span class="mi">2013287116</span><span class="o">,</span>
+        <span class="mi">2013288652</span><span class="o">,</span>
+        <span class="mi">2013290188</span><span class="o">,</span>
+        <span class="mi">2013291980</span><span class="o">,</span>
+        <span class="mi">2013293516</span><span class="o">,</span>
+        <span class="mi">2013295308</span><span class="o">,</span>
+        <span class="mi">2013296844</span><span class="o">,</span>
+        <span class="mi">2013298636</span><span class="o">,</span>
+        <span class="mi">2013300172</span><span class="o">,</span>
+        <span class="mi">2013301964</span><span class="o">,</span>
+        <span class="mi">2013303500</span><span class="o">,</span>
+        <span class="mi">2013305036</span><span class="o">,</span>
+        <span class="mi">2013306828</span><span class="o">,</span>
+        <span class="mi">2013308364</span><span class="o">,</span>
+        <span class="mi">2013310156</span><span class="o">,</span>
+        <span class="mi">2013311692</span><span class="o">,</span>
+        <span class="mi">2013313484</span><span class="o">,</span>
+        <span class="mi">2013315020</span><span class="o">,</span>
+        <span class="mi">2013316812</span><span class="o">,</span>
+        <span class="mi">2013318348</span><span class="o">,</span>
+        <span class="mi">2013318342</span><span class="o">,</span>
+        <span class="mi">2013318335</span><span class="o">,</span>
+        <span class="mi">2013318329</span><span class="o">,</span>
+        <span class="mi">2013318322</span><span class="o">,</span>
+        <span class="mi">2013318316</span> <span class="c1">//dark blue</span>
+    <span class="o">};</span>
+
+        <span class="n">plotter</span><span class="o">.</span><span class="na">setOpaqueColors</span><span class="o">(</span><span class="n">opaqueColors</span><span class="o">);</span>
+
+        <span class="n">plotter</span><span class="o">.</span><span class="na">setSemitransparentColors</span><span class="o">(</span><span class="n">semitransparentColors</span><span class="o">);</span> 
+
+    <span class="o">}</span>
+
+<span class="o">}</span>
+
+</pre></div>
+
+<h2>How it looks like</h2>
+
+<p><img src="readmefiles/ex1.png" alt="Ex1"><img src="readmefiles/ex2.png" alt="Ex2"><img src="readmefiles/ex3.png" alt="Ex3"><img src="readmefiles/ex4.png" alt="Ex4"><img src="readmefiles/ex5.png" alt="Ex5"></p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Googlemaptypegenerator maintained by <a href="https://github.com/melanke">melanke</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
