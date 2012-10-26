@@ -1,5 +1,6 @@
 package mlk.mapgenerator.draw;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.HashSet;
@@ -10,6 +11,7 @@ import javax.imageio.ImageIO;
 import mlk.mapgenerator.scructure.PointInMap;
 import mlk.mapgenerator.scructure.Tile;
 import mlk.mapgenerator.util.GoogleTileUtils;
+import mlk.mapgenerator.util.GradientMaker;
 
 /**
  *
@@ -22,90 +24,15 @@ public class PointPlotter {
     private static int W = 256, H = 256;
     private static int MAX_SIZE = 65536;
 
-    private int[] opaqueColors = {
-        -16764468, //royal blue
-        -16762676,
-        -16761140,
-        -16759348,
-        -16757812,
-        -16756020,
-        -16754484,
-        -16752948,
-        -16751156,
-        -16749620,
-        -16747828,
-        -16746292,
-        -16744500,
-        -16742964,
-        -16741172,
-        -16739636,
-        -16738100,
-        -16736308,
-        -16734772,
-        -16732980,
-        -16731444,
-        -16729652,
-        -16728116,
-        -16726324,
-        -16724788,
-        -16724794,
-        -16724801,
-        -16724807,
-        -16724814,
-        -16724820 //dark blue
-    };
-    
-    private int[] semitransparentColors = {
-        2013278668, //royal blue
-        2013280460,
-        2013281996,
-        2013283788,
-        2013285324,
-        2013287116,
-        2013288652,
-        2013290188,
-        2013291980,
-        2013293516,
-        2013295308,
-        2013296844,
-        2013298636,
-        2013300172,
-        2013301964,
-        2013303500,
-        2013305036,
-        2013306828,
-        2013308364,
-        2013310156,
-        2013311692,
-        2013313484,
-        2013315020,
-        2013316812,
-        2013318348,
-        2013318342,
-        2013318335,
-        2013318329,
-        2013318322,
-        2013318316 //dark blue
-    };
+    private Color[] colors;
 
-    public int[] getOpaqueColors() {
-        return opaqueColors;
+    public PointPlotter() {
+        colors = GradientMaker.make(Color.YELLOW, Color.RED);
     }
 
-    public void setOpaqueColors(int[] opaqueColors) {
-        this.opaqueColors = opaqueColors;
+    public PointPlotter(Color[] colors) {
+        this.colors = colors;
     }
-
-    public int[] getSemitransparentColors() {
-        return semitransparentColors;
-    }
-
-    public void setSemitransparentColors(int[] semitransparentColors) {
-        this.semitransparentColors = semitransparentColors;
-    }
-    
-    
-    
     
 
     /**
@@ -326,12 +253,21 @@ public class PointPlotter {
                 continue;
             }
 
-            int indexColorPoint = Math.max(Math.min(((int) (pixels[i].getWeight() * opaqueColors.length)), 30) - 1, 0);
-
+            int indexColorPoint = (int) (Math.max(Math.min(pixels[i].getWeight(), 1), 0)*colors.length-1);
+            Color colorBase = colors[indexColorPoint];
+            
             if (pixels[i].isOpaque()) {
-                response[i] = opaqueColors[indexColorPoint];
+                response[i] = colorBase.getRGB();
             } else {
-                response[i] = semitransparentColors[indexColorPoint];
+                int alpha = colorBase.getAlpha()/2;
+                
+                Color semi = new Color(
+                        colorBase.getRed(), 
+                        colorBase.getGreen(),
+                        colorBase.getBlue(),
+                        alpha);
+                
+                response[i] = semi.getRGB();
             }
         }
 
