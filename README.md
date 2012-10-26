@@ -3,6 +3,24 @@ GoogleMapTypeGenerator
 
 Generates images to overlay google maps, it is usefull when you need to plot a large amount of data to a map
 
+##Quick Guide
+
+First, make sure you have the file emptyTile.png in the same folder of your project JAR.
+ 
+Then implement a custom MapGenerator as described below.
+
+And make it run
+```java
+new MyCustomMapGenerator().run();
+```
+
+Wait something about 30 minutes or less, it depends how much data do you have.
+
+the file name patter will be <tileX>x<tileY>-<tileZoom>.png (example: 8x10-4.png)
+
+After generating images you need to load them as described in this link
+https://developers.google.com/maps/documentation/javascript/maptypes#CustomMapTypes
+
 ##Implementing a MapGenerator
 
 ```java
