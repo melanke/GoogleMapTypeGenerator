@@ -18,6 +18,10 @@ public class PointInMap {
     public PointInMap() {
     }
 
+    /**
+     * @param location position
+     * @param weight 0 to 1 indicating the color of the point
+     */
     public PointInMap(Location location, float weight) {
         this.location = location;
         this.weight = weight;
